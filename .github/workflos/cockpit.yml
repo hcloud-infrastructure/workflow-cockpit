@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-workflow-in-another-repo:
-      uses: hcloud-infrastructure/terraform/.github/workflows/terraform.yml@main
+    name: test
   my_first_job:
     name: My first job
   my_second_job:
