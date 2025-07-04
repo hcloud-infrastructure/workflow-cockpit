@@ -1,5 +1,4 @@
-name: Simple 3 Jobs Workflow
-
+name: Deploy hcloud infrastructure
 on:
   workflow_dispatch:
   pull_request:
