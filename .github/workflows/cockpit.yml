@@ -38,12 +38,17 @@ jobs:
         run: date
 
   example_matrix:
-    name: Run ansible and configure target systemss
+    name: Run Ansible and Configure Target Systems
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [conf_workstation, conf_test, 14]
+        version: [conf_workstation, conf_test, conf_prod]
+  
     steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.version }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+  
+      - name: Run Ansible for ${{ matrix.version }}
+        run: |
+          echo "Running Ansible playbook for: ${{ matrix.version }}"
+          ansible-playbook playbooks/${{ matrix.version }}.yml
