@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          repository: hcloud-infrastructure/tf-infra
+          ref: main
 
       - name: List files in repo
         run: ls -la
