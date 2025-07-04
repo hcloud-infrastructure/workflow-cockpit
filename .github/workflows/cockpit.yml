@@ -5,7 +5,8 @@ on:
 
 jobs:
   run_tf:
-    uses: hcloud-infrastructure/workflow-terraform/.github/workflows/terraform.yml@main
+    uses: .github/workflows/terraform.yml@main
+#    uses: hcloud-infrastructure/workflow-terraform/.github/workflows/terraform.yml@main
     
   conf_workstation:
     name: Run ansible and configure target system
