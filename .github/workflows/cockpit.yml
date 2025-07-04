@@ -51,4 +51,3 @@ jobs:
       - name: Run Ansible for ${{ matrix.version }}
         run: |
           echo "Running Ansible playbook for: ${{ matrix.version }}"
-          ansible-playbook playbooks/${{ matrix.version }}.yml
