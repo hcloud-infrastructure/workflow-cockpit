@@ -5,18 +5,8 @@ on:
 
 jobs:
   run_tf:
-    name: Run terraform and deploy infrastructure on hcloud
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          repository: hcloud-infrastructure/tf-infra
-          ref: main
-
-      - name: List files in repo
-        run: ls -la
-
+    uses: hcloud-infrastructure/workflow-terraform/.github/workflows/terraform.yml@main
+    
   conf_workstation:
     name: Run ansible and configure target system
     needs: run_tf  
