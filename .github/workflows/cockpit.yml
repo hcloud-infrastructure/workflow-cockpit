@@ -1,0 +1,15 @@
+name: Cockpit
+
+on:
+#  push:
+#    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  call-workflow-in-another-repo:
+    name: test
+  my_first_job:
+    name: My first job
+  my_second_job:
+    name: My second job
