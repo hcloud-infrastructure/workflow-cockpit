@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  job_one:
-    name: Job One - Code and Files
+  run_tf:
+    name: Run terraform and deploy infrastructure on hcloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,9 +15,9 @@ jobs:
       - name: List files in repo
         run: ls -la
 
-  job_two:
-    name: Job Two - System Info
-    needs: job_one  # 👈 depends on job_one
+  conf_workstation:
+    name: Run ansible and configure target system
+    needs: run_tf  
     runs-on: ubuntu-latest
     steps:
       - name: Show OS details
@@ -26,8 +26,9 @@ jobs:
       - name: Show CPU info
         run: lscpu
 
-  job_three:
-    name: Job Three - Disk and Date
+  conf_test:
+    name: Run ansible and configure target systems
+    needs: run_tf 
     runs-on: ubuntu-latest
     steps:
       - name: Check disk usage
@@ -35,3 +36,14 @@ jobs:
 
       - name: Show current date/time
         run: date
+
+  example_matrix:
+    name: Run ansible and configure target systemss
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [conf_workstation, conf_test, 14]
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
