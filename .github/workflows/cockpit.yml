@@ -5,7 +5,7 @@ on:
 
 jobs:
   run_tf:
-    uses: ./.github/workflows/terraform.yml@main
+    uses: ./.github/workflows/terraform.yml
 #    uses: hcloud-infrastructure/workflow-terraform/.github/workflows/terraform.yml@main
     
   conf_workstation:
