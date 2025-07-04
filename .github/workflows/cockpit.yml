@@ -1,4 +1,4 @@
-name: Simple Workflow with Steps
+name: Simple 3 Jobs Workflow
 
 on:
   workflow_dispatch:
@@ -6,35 +6,32 @@ on:
 
 jobs:
   job_one:
-    name: Checkout and List Files
+    name: Job One - Code and Files
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: List repo files
+      - name: List files in repo
         run: ls -la
 
   job_two:
-    name: Show System Info
+    name: Job Two - System Info
+    needs: job_one  # 👈 depends on job_one
     runs-on: ubuntu-latest
     steps:
-      - name: Print OS and CPU info
-        run: |
-          echo "OS info:"
-          uname -a
-          echo "CPU info:"
-          lscpu
+      - name: Show OS details
+        run: uname -a
 
-      - name: Print current time
-        run: date
+      - name: Show CPU info
+        run: lscpu
 
   job_three:
-    name: Final Message and Disk Check
+    name: Job Three - Disk and Date
     runs-on: ubuntu-latest
     steps:
-      - name: Disk usage
+      - name: Check disk usage
         run: df -h
 
-      - name: Final message
-        run: echo "All jobs executed successfully 🎉"
+      - name: Show current date/time
+        run: date
