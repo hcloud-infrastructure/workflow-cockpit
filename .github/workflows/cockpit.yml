@@ -39,6 +39,7 @@ jobs:
 
   example_matrix:
     name: Run Ansible and Configure Target Systems
+    needs: run_tf 
     runs-on: ubuntu-latest
     strategy:
       matrix:
