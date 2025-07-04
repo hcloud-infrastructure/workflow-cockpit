@@ -1,0 +1,4 @@
+systems:
+  - conf_workstation
+  - conf_test
+  - conf_prod
