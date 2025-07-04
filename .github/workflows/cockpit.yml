@@ -52,3 +52,40 @@ jobs:
       - name: Run Ansible for ${{ matrix.version }}
         run: |
           echo "Running Ansible playbook for: ${{ matrix.version }}"
+
+  read-config:
+    name: Read systems list
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo apt-get update && sudo apt-get install -y yq
+
+      - name: Read systems list from config.yml
+        id: set-matrix
+        run: |
+          systems=$(yq '.systems' config.yml | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "matrix=$systems" >> $GITHUB_OUTPUT
+
+  example_matrix1:
+    name: Run Ansible on each system
+    needs: read-config
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        system: ${{ fromJson(needs.read-config.outputs.matrix) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Ansible for ${{ matrix.system }}
+        run: |
+          echo "Running Ansible playbook for: ${{ matrix.system }}"
+          ansible-playbook playbooks/${{ matrix.system }}.yml
+
